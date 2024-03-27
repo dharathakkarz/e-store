@@ -1,0 +1,22 @@
+.home-container {
+    background-image: url('../assets/images/bghome.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+     justify-content: center;
+   // align-items: center;
+    color: #2d27db;
+    font-size: 24px;
+    font-weight: bold;
+  
+   
+    
+  }
+
+  .home-container .product-link{
+    text-decoration: none;
+  
+   
+  }
+  
