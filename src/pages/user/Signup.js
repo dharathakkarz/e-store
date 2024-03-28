@@ -2,7 +2,7 @@
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { isLoggedIn } from '../../utils/authUtils';
 import React from 'react';
 import '../../assets/login.scss'
 import { useForm } from 'react-hook-form';
@@ -15,10 +15,18 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [emailError, setEmailError] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('');
 
   const handlelogin = () => {
     navigate('/login');
   };
+
+
+  React.useEffect(() => {
+    if (isLoggedIn()) {
+      navigate('/product');
+    }
+  }, [navigate]);
 
   const validateEmail = (value) => {
     if (!value) {
@@ -29,37 +37,45 @@ const Signup = () => {
       setEmailError('');
     }
   };
-const onSubmit = (data) => {
-  if (emailError) {
-   
-    return;
-  }
+  const validatePassword = (value) => {
+    if (!value) {
+      setPasswordError('Password is required');
+    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(value)) {
+      setPasswordError('Please Enter Valid Password ');
+    } else {
+      setPasswordError('');
+    }
+  };
+  const onSubmit = (data) => {
+    if (emailError || passwordError) {
+      return;
+    }
 
-  // Check if user with the same email already exists
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const existingUser = users.find(user => user.email === data.email);
-  if (existingUser) {
-    toast.error('This Email-id is already Registerd. Please use a different email.', {
+    // Check if user with the same email already exists
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const existingUser = users.find(user => user.email === data.email);
+    if (existingUser) {
+      toast.error('This Email-id is already Registerd. Please use a different email.', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: false
+      });
+      return;
+    }
+
+    // Dispatch signup action if no existing user found
+    dispatch(signupRequest(data));
+    users.push(data);
+    localStorage.setItem('users', JSON.stringify(users));
+    toast.success('Signup successful! ', {
       position: 'top-center',
       autoClose: 2000,
       hideProgressBar: false
     });
-    return;
-  }
-
-  // Dispatch signup action if no existing user found
-  dispatch(signupRequest(data));
-  users.push(data);
-  localStorage.setItem('users', JSON.stringify(users));
-  toast.success('Signup successful! ', {
-    position: 'top-center',
-    autoClose: 2000,
-    hideProgressBar: false
-  });
-  setTimeout(() => {
-    navigate('/login');
-  }, 3000);
-};
+    setTimeout(() => {
+      navigate('/login');
+    }, 3000);
+  };
 
   return (
     <section className="vh-100 gradient-custom">
@@ -81,8 +97,8 @@ const onSubmit = (data) => {
                     </div>
 
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
-                      <input type="password" {...register('password', { required: true })} className="form-control form-control-lg" placeholder="Password" />
-                      {errors.password && <span>Password is required</span>}
+                      <input type="password" {...register('password', { required: true })} className="form-control form-control-lg" placeholder="Password" onChange={(e) => validatePassword(e.target.value)} />
+                      {passwordError && <span>{passwordError}</span>}
                     </div>
 
                     <input type="submit" className="btn btn-primary btn-lg px-5" value="Sign Up" />
@@ -103,6 +119,5 @@ const onSubmit = (data) => {
   );
 };
 
-export default Signup; 
-
+export default Signup;
 

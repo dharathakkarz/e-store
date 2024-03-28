@@ -27,6 +27,9 @@ const Nav = () => {
          {location.pathname !== "/product" && (
              <Link className="nav-item nav-link" to="/product">Product</Link>
            )}
+            {location.pathname !== "/cart" && (
+             <Link className="nav-item nav-link" to="/cart">Cart</Link>
+           )}
           
           {!loggedIn && <Link className="nav-item nav-link" to="/login">Login</Link>}
           {loggedIn && <button className="nav-item nav-link btn btn-link" onClick={handleLogout}>Logout</button>}

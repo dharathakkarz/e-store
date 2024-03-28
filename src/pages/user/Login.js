@@ -14,7 +14,7 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const handleSignUp = () => {
-    navigate('/signup');
+    navigate('/signup'); 
   };
     
 useEffect(() => {

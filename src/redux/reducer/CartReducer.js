@@ -1,5 +1,6 @@
 
-import { ADD_TO_CHECKOUT,ADD_TO_CART, REMOVE_FROM_CART } from '../../constant/ActionType';
+
+import { ADD_TO_CART, REMOVE_FROM_CART, ADD_TO_CHECKOUT } from '../../constant/ActionType';
 
 // Load cart items from local storage if available
 const initialState = {
@@ -16,24 +17,23 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         items: updatedItems,
       };
-    case REMOVE_FROM_CART:
-      const filteredItems = state.items.filter(item => item.id !== action.payload);
-      localStorage.setItem('cartItems', JSON.stringify(filteredItems)); // Update local storage
-      return {
-        ...state,
-        items: filteredItems,
-      };
-      case ADD_TO_CHECKOUT:
-        return { 
+      case REMOVE_FROM_CART:
+        const filteredItems = state.items.filter(item => item && item.id !== action.payload);
+        localStorage.setItem('cartItems', JSON.stringify(filteredItems)); // Update local storage
+        return {
           ...state,
-          product: action.payload 
-        }; // Store product in the checkout 
-     
-  
+          items: filteredItems,
+        };
+    case ADD_TO_CHECKOUT:
+      return { 
+        ...state,
+        product: action.payload 
+      }; // Store product in the checkout 
     default:
       return state;
   }
 };
 
 export default cartReducer;
+
 
