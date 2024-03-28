@@ -1,50 +1,11 @@
 
 
-// import React from 'react';
-// import { useForm } from 'react-hook-form'; 
-// import { useDispatch } from 'react-redux';
-// import { signupRequest } from '../../redux/actions/UserAction';
-// import { useNavigate } from 'react-router-dom';
-
-// const Signup = () => {
-//   const { register, handleSubmit, formState: { errors } } = useForm();
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const onSubmit = (data) => {
-//     // Dispatch signup action
-//     dispatch(signupRequest(data));
-//     // Store user data in local storage
-//     const users = JSON.parse(localStorage.getItem('users')) || [];
-//     users.push(data);
-//     localStorage.setItem('users', JSON.stringify(users));
-//     // Redirect to login page
-//     navigate('/login');
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <input type="text" {...register('username', { required: true })} placeholder="Username" />
-//       {errors.username && <span>Username is required</span>} 
-    
-//       <input type="email" {...register('email', { required: true })} placeholder="Email" />
-//       {errors.email && <span>Email is required</span>}
-      
-//       <input type="password" {...register('password', { required: true })} placeholder="Password" />
-//       {errors.password && <span>Password is required</span>} 
-      
-//       <input type="submit" value="Sign Up" />
-//     </form>
-//   );
-// };
-
-// export default Signup;
-
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react';
-import'../../assets/login.scss'
-import { useForm } from 'react-hook-form'; 
+import '../../assets/login.scss'
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { signupRequest } from '../../redux/actions/UserAction';
 import { useNavigate } from 'react-router-dom';
@@ -53,21 +14,52 @@ const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [emailError, setEmailError] = React.useState('');
 
   const handlelogin = () => {
     navigate('/login');
   };
 
-  const onSubmit = (data) => {
-    // Dispatch signup action
-    dispatch(signupRequest(data));
-    // Store user data in local storage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    users.push(data);
-    localStorage.setItem('users', JSON.stringify(users));
-    // Redirect to login page
-    navigate('/login');
+  const validateEmail = (value) => {
+    if (!value) {
+      setEmailError('Email is required');
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{3}$/i.test(value)) {
+      setEmailError('Invalid email address');
+    } else {
+      setEmailError('');
+    }
   };
+const onSubmit = (data) => {
+  if (emailError) {
+   
+    return;
+  }
+
+  // Check if user with the same email already exists
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+  const existingUser = users.find(user => user.email === data.email);
+  if (existingUser) {
+    toast.error('This Email-id is already Registerd. Please use a different email.', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: false
+    });
+    return;
+  }
+
+  // Dispatch signup action if no existing user found
+  dispatch(signupRequest(data));
+  users.push(data);
+  localStorage.setItem('users', JSON.stringify(users));
+  toast.success('Signup successful! ', {
+    position: 'top-center',
+    autoClose: 2000,
+    hideProgressBar: false
+  });
+  setTimeout(() => {
+    navigate('/login');
+  }, 3000);
+};
 
   return (
     <section className="vh-100 gradient-custom">
@@ -83,10 +75,9 @@ const Signup = () => {
                       <input type="text" {...register('username', { required: true })} className="form-control form-control-lg" placeholder="Username" />
                       {errors.username && <span>Username is required</span>}
                     </div>
-
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
-                      <input type="email" {...register('email', { required: true })} className="form-control form-control-lg" placeholder="Email" />
-                      {errors.email && <span>Email is required</span>}
+                      <input type="email" {...register('email')} className="form-control form-control-lg" placeholder="Email" onChange={(e) => validateEmail(e.target.value)} />
+                      {emailError && <span>{emailError}</span>}
                     </div>
 
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
@@ -97,8 +88,8 @@ const Signup = () => {
                     <input type="submit" className="btn btn-primary btn-lg px-5" value="Sign Up" />
                   </form>
 
-                  <p style={{ marginTop:'5px' , marginRight:'0px'}}>  already have an account?
-                    <button className="btn btn-primary btn-XL px-3"  style={{ marginLeft:'5px' }} onClick={() => handlelogin()}>
+                  <p style={{ marginTop: '5px', marginRight: '0px' }}>  already have an account?
+                    <button className="btn btn-primary btn-XL px-3" style={{ marginLeft: '5px' }} onClick={() => handlelogin()}>
                       Login
                     </button>
                   </p>
@@ -112,4 +103,6 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup; 
+
+

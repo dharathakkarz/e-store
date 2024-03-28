@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
   error: null,
   user:null,
-  //isLoggedIn: false,
+
   isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
 };
 

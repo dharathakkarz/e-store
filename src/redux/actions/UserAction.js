@@ -67,7 +67,7 @@ export const logoutUser = () => {
   return (dispatch) => {
     // Remove login status from local storage
     localStorage.removeItem('token');
-   // localStorage.removeItem('isLoggedIn');
+ 
     // Dispatch action to logout user
     dispatch({ type: LOGOUT_SUCCESS });
    

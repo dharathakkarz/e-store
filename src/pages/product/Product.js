@@ -102,7 +102,7 @@ const Product = () => {
           onChange={handleSearch} 
         />
         <select onChange={handleSort}>
-          <option value="">Filter</option>
+          <option value="" placeholder="filter">Filter</option>
           <option value="lowToHigh">Price: Low to High</option>
           <option value="highToLow">Price: High to Low</option>
           <option disabled="disabled">---</option>
