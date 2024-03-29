@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../assets/cart.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../../redux/actions/CartAction';
+import { isLoggedIn } from '../../utils/authUtils';
 
 const Cart = () => {
   const cartItems = useSelector(state => state.cart.items);
@@ -15,13 +16,22 @@ const Cart = () => {
     dispatch(removeFromCart(productId));
   };
 
+  useEffect(()=>{
+    if(!isLoggedIn()){
+      navigate('/product')
+    }
+  })
+
+
   const handleContinueShopping = () => {
     navigate('/product');
   };
+  
 
   const handleCheckout = () => {
     navigate('/checkout');
   };
+
 
   return (
     <div>
