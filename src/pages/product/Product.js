@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import '../../assets/product.scss';
 import { isLoggedIn } from '../../utils/authUtils';
@@ -19,7 +20,7 @@ const Product = () => {
   const [itemsPerPage] = useState(5);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
-  const [moreDescriptions, setmoreDescriptions] = useState({});
+  const [moreDescriptions, setMoreDescriptions] = useState({});
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -105,9 +106,6 @@ const Product = () => {
         draggable: true,
         progress: undefined,
       });
-      setTimeout(() => {
-        navigate('/cart');
-      }, 3000);
     } else {
       toast.error('Please complete the registration', {
         position: 'top-center',
@@ -120,7 +118,7 @@ const Product = () => {
     }
   };
   const toggleDescription = (productId) => {
-    setmoreDescriptions(prevState => ({
+    setMoreDescriptions(prevState => ({
       ...prevState,
       [productId]: !prevState[productId]
     }));
@@ -148,19 +146,19 @@ const Product = () => {
       {error && <p>Error: {error}</p>}
       <div className="card-container">
         {currentItems.map(product => (
-          <div key={product.id} className="card">
-            <img src={product.image} alt={product.title} className="card-image" style={{ width: '100px', height: '100px' }} />
-            <div className="card-details">
-              <h3 className="card-title">{product.title}</h3>
-              <p className="card-description">
+          <div key={product.id} className="card3">
+            <img src={product.image} alt={product.title} className="card-image3" style={{ width: '100px', height: '100px' }} />
+            <div className="card-details3">
+              <h3 className="card-title3">{product.title}</h3>
+              <p className="card-description3">
                 {moreDescriptions[product.id] ? product.description : `${product.description.slice(0, 100)}...`}
                 <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => toggleDescription(product.id)}>
                   {moreDescriptions[product.id] ? ' Show Less' : ' Show More'}
                 </span>
               </p>
-              <p className="card-price">Price: {product.price}</p>
-              <p className="card-category">Category: {product.category}</p>
-              <div className="card-rating">
+              <p className="card-price3">Price: {product.price}</p>
+              <p className="card-category3">Category: {product.category}</p>
+              <div className="card-rating3">
                 <p>Rating: {product.rating.rate}</p>
                 <p>Count: {product.rating.count}</p>
               </div>
@@ -181,7 +179,4 @@ const Product = () => {
   );
 };
 
-export default Product;
-
-
-
+export default Product; 

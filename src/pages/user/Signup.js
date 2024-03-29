@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { isLoggedIn } from '../../utils/authUtils';
 import React from 'react';
-import '../../assets/login.scss'
+
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { signupRequest } from '../../redux/actions/UserAction';
@@ -79,25 +79,25 @@ const Signup = () => {
 
   return (
     <section className="vh-100 gradient-custom">
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
+      <div className="container31 py-5 h-100">
+        <div className="row31 d-flex justify-content-center align-items-center h-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card bg-dark text-white" style={{ borderRadius: '1rem' }}>
+            <div className="card31 bg-dark text-white" style={{ borderRadius: '1rem' }}>
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
                   <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
-                      <input type="text" {...register('username', { required: true })} className="form-control form-control-lg" placeholder="Username" />
+                      <input type="text" {...register('username', { required: true })} className="form-control31 form-control-lg" placeholder="Username" />
                       {errors.username && <span>Username is required</span>}
                     </div>
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
-                      <input type="email" {...register('email')} className="form-control form-control-lg" placeholder="Email" onChange={(e) => validateEmail(e.target.value)} />
+                      <input type="email" {...register('email')} className="form-control31 form-control-lg" placeholder="Email" onChange={(e) => validateEmail(e.target.value)} />
                       {emailError && <span>{emailError}</span>}
                     </div>
 
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
-                      <input type="password" {...register('password', { required: true })} className="form-control form-control-lg" placeholder="Password" onChange={(e) => validatePassword(e.target.value)} />
+                      <input type="password" {...register('password', { required: true })} className="form-control31 form-control-lg" placeholder="Password" onChange={(e) => validatePassword(e.target.value)} />
                       {passwordError && <span>{passwordError}</span>}
                     </div>
 

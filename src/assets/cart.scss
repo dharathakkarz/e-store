@@ -21,4 +21,70 @@ h2 {
      display: flex;
       
       }
-      
+  /* cart.scss */
+
+.card-container-4 {
+  display: flex;
+  //flex-wrap: wrap;
+  //justify-content: space-between;
+}
+
+.card-4 {
+  width: 30%;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-image4 {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.card-details-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title-4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card-description-4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.card-price-4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card-category-4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.card-rating-4 {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.twobtn-4 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+

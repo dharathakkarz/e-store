@@ -1,5 +1,7 @@
 
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../assets/cart.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +16,11 @@ const Cart = () => {
   const handleRemoveFromCart = (productId) => {
     console.log("Removing product with ID:", productId);
     dispatch(removeFromCart(productId));
+    toast.warn('item removed from the cart', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: false
+    });
   };
 
   useEffect(()=>{
@@ -21,7 +28,7 @@ const Cart = () => {
       navigate('/product')
     }
   })
-
+ 
 
   const handleContinueShopping = () => {
     navigate('/product');
@@ -36,25 +43,25 @@ const Cart = () => {
   return (
     <div>
       <h2>Your Shopping Cart</h2>
-      <div className="card-container">
+      <div className="card-container-4">
         {cartItems.map(product => (
           product && product.id ? (
-            <div key={product.id} className="card">
+            <div key={product.id} className="card-4">
               {product.image && (
-                <img src={product.image} alt={product.title} className="card-image" style={{ width:'100px',height:'100px' }}/>
+                <img src={product.image} alt={product.title} className="card-image4" style={{ width:'100px',height:'100px' }}/>
               )}
-              <div className="card-details">
-                <h3 className="card-title">{product.title}</h3>
-                {product.description && <p className="card-description">Description: {product.description}</p>}
-                <p className="card-price">Price: {product.price}</p>
-                {product.category && <p className="card-category">Category: {product.category}</p>}
+              <div className="card-details-4">
+                <h3 className="card-title-4">{product.title}</h3>
+                {product.description && <p className="card-description-4">Description: {product.description}</p>}
+                <p className="card-price-4">Price: {product.price}</p>
+                {product.category && <p className="card-category-4">Category: {product.category}</p>}
                 {product.rating && (
-                  <div className="card-rating">
+                  <div className="card-rating-4">
                     <p>Rating: {product.rating.rate}</p>
                     <p>Count: {product.rating.count}</p>
                   </div>
                 )}
-                <div className='twobtn'>
+                <div className='twobtn-4'>
                   <button className='remove btn btn-primary' onClick={() => handleRemoveFromCart(product.id)}>Remove from Cart</button>
                   <button className='checkout btn btn-primary' onClick={handleCheckout}>Checkout</button>
                 </div>

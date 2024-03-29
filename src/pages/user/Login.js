@@ -1,5 +1,6 @@
 
-import React, { useState ,useEffect} from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { isLoggedIn } from '../../utils/authUtils';
@@ -14,29 +15,28 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const handleSignUp = () => {
-    navigate('/signup'); 
+    navigate('/signup');
   };
-    
-useEffect(() => {
-  if (isLoggedIn()) {
-    navigate('/product');
-  }
-}, [navigate]);
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate('/product');
+    }
+  }, [navigate]);
 
   const onSubmit = async (data) => {
     try {
       const { email, password } = data;
       dispatch(loginUser(email, password, setError)); // Dispatch loginUser action
-  console.log(email)
-  
-        toast.success('Login successful!', {
-          position: 'top-center',
-          autoClose: 2000,
-          hideProgressBar: false
-        });
-        setTimeout(() => {
-          navigate('/product');
-        }, 3000);
+
+      toast.success('Login successful!', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: false
+      });
+      setTimeout(() => {
+        navigate('/product');
+      }, 3000);
 
     } catch (error) {
       toast.error('Login failed. Please check your credentials.', {
@@ -49,21 +49,21 @@ useEffect(() => {
   };
 
   return (
-    <div className="container py-5 h-100 align-items-center">
-      <div className="row d-flex justify-content-center align-items-center">
+    <div className="container21 py-5 h-100 align-items-center">
+      <div className="row21 d-flex justify-content-center align-items-center">
         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div className="card bg-dark text-white" style={{ borderRadius: '1rem' }}>
+          <div className="card21 bg-dark text-white" style={{ borderRadius: '1rem' }}>
             <div className="card-body p-5 text-center">
               <div className="mb-md-5 mt-md-4 pb-5">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <p className="text-white-50 mb-5">Please enter your email and password!</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-outline form-white mb-8" style={{ marginBottom: '20px' }}>
-                    <input type="email" {...register('email', { required: true })} className="form-control form-control-lg" placeholder="Email" />
+                    <input type="email" {...register('email', { required: true })} className="form-control21 form-control-lg" placeholder="Email" />
                     {errors.email && <div>Email is required</div>}
                   </div>
                   <div className="form-outline form-white mb-8" style={{ marginBottom: '20px' }}>
-                    <input type="password" {...register('password', { required: true })} className="form-control form-control-lg" placeholder="Password" />
+                    <input type="password" {...register('password', { required: true })} className="form-control21 form-control-lg" placeholder="Password" />
                     {errors.password && <div>Password is required</div>}
                   </div>
                   <input type="submit" className=" mb-8 btn btn-primary btn-lg px-5" value="Login" />
@@ -83,5 +83,4 @@ useEffect(() => {
   );
 };
 
-export default Login; 
-
+export default Login;
