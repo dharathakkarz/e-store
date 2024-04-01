@@ -121,7 +121,7 @@ const Product = () => {
     setMoreDescriptions(prevState => ({
       ...prevState,
       [productId]: !prevState[productId]
-    }));
+    })); 
   };
   return (
     <div className="product-container">
