@@ -21,10 +21,10 @@ const Card = () => {
         const newPosition = prevPosition + 300;
         return newPosition >= products.length * 300 ? 0 : newPosition;
       });
-    }, 4000); // automatic scroll every 4 seconds
+    }, 3000); // automatic scroll every 4 seconds
 
-    return () => clearInterval(intervalId);
-  }, [products.length]);
+    return () => clearInterval(intervalId); // clear interval when unmount or product.length change
+  }, [products.length]); 
 
   const handleCardClick = () => {
     navigate('/product');

@@ -46,8 +46,7 @@ export const loginUser = (email, password, navigate, setError) => {
       dispatch({ type: 'LOGIN_SUCCESS', payload: loggedInUser });
       localStorage.setItem('isLoggedIn', true);
 
-      // Redirect to product page after successful login
-      navigate('/product');
+      
     } else {
       setError('Invalid email or password');
     }
