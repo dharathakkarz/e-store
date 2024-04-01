@@ -8,7 +8,7 @@ import Cart from './pages/product/Cart';
 import Checkout from './pages/product/Checkout';
 import Home from './pages/home/Home';
 import Nav from './components/Nav';
-import SideNav from './components/SideNav';
+
 import Slide from './pages/home/Slide';
 import Card from './pages/home/Card';
 
@@ -28,7 +28,7 @@ function App() {
       <Route path='/login' element= {<Login/>}></Route>
       <Route path='/cart' element= {<Cart/>}></Route>
       <Route path='/checkout' element= {<Checkout/>}></Route>
-      <Route path='/sidenav' element= {<SideNav/>}></Route>
+  
       <Route path='/slide' element= {<Slide/>}></Route>
       <Route path='/card' element= {<Card/>}></Route>
      

@@ -21,13 +21,13 @@ const Slide = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex(prevIndex => (prevIndex === (totalItems - 1) ? 0 : prevIndex + 1));
-    }, 3000); // Change the interval to 3000 milliseconds (3 seconds)
+    }, 3000); 
     return () => clearInterval(timer);
   }, []);
 
   return (
     <>
-            <div>
+            <div className='slide-71'>
         <div className="carousel-container-71">
           <Carousel activeIndex={index} interval={3000} controls={false}>
             <Carousel.Item>
