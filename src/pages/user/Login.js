@@ -20,11 +20,12 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      navigate('/product');
-    }
+      navigate('/slide');
+    } 
   }, [navigate]);
 
   const onSubmit = async (data) => {
+  
     try {
       const { email, password } = data;
       dispatch(loginUser(email, password, setError)); // Dispatch loginUser action
@@ -35,7 +36,7 @@ const Login = () => {
         hideProgressBar: false
       });
       setTimeout(() => {
-        navigate('/product');
+        navigate('/slide');
       }, 3000);
 
     } catch (error) {

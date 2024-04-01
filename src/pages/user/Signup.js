@@ -24,7 +24,7 @@ const Signup = () => {
 
   React.useEffect(() => {
     if (isLoggedIn()) {
-      navigate('/product');
+      navigate('/slide');
     }
   }, [navigate]);
 

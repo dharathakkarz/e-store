@@ -21,17 +21,17 @@ h2 {
      display: flex;
       
       }
-  /* cart.scss */
 
 .card-container-4 {
   display: flex;
   //flex-wrap: wrap;
-  //justify-content: space-between;
+  justify-content: space-between;
 }
 
 .card-4 {
   width: 30%;
   margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
   padding: 20px;
   border: 1px solid #ccc;
