@@ -11,29 +11,43 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const updatedItems = [...state.items, action.payload];
-      localStorage.setItem('cartItems', JSON.stringify(updatedItems)); // Update local storage
-      return {
-        ...state,
-        items: updatedItems,
-      };
-      case REMOVE_FROM_CART:
-        const filteredItems = state.items.filter(item => item && item.id !== action.payload);
-        localStorage.setItem('cartItems', JSON.stringify(filteredItems)); // Update local storage
+      const existingItemIndex = state.items.findIndex(item => item.id === action.payload.id);
+      if (existingItemIndex !== -1) {
+        const updatedItems = [...state.items];
+        updatedItems[existingItemIndex].quantity += action.payload.quantity;
+        localStorage.setItem('cartItems', JSON.stringify(updatedItems)); // Update local storage
         return {
           ...state,
-          items: filteredItems,
+          items: updatedItems,
         };
-    case ADD_TO_CHECKOUT:
-      return { 
+      } else {
+        const updatedItems = [...state.items, action.payload];
+        localStorage.setItem('cartItems', JSON.stringify(updatedItems)); // Update local storage
+        return {
+          ...state,
+          items: updatedItems,
+        };
+      }
+
+    case REMOVE_FROM_CART:
+      const filteredItems = state.items.filter(item => item && item.id !== action.payload);
+      localStorage.setItem('cartItems', JSON.stringify(filteredItems)); // Update local storage
+      return {
         ...state,
-        product: action.payload 
+        items: filteredItems,
+      };
+
+    case ADD_TO_CHECKOUT:
+      return {
+        ...state,
+        product: action.payload
       }; // Store product in the checkout 
+
     default:
       return state;
   }
 };
 
-export default cartReducer;
+export default cartReducer;  //2nd working
 
 

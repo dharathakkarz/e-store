@@ -2,6 +2,7 @@
 
 
 
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -16,6 +17,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [emailError, setEmailError] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('');
 
   const handleSignUp = () => {
     navigate('/signup');
@@ -26,6 +29,25 @@ const Login = () => {
       navigate('/slide');
     }
   }, [navigate]);
+
+  const validateEmail = (value) => {
+    if (!value) {
+      setEmailError('Email is required');
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{3}$/i.test(value)) {
+      setEmailError('Invalid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+  const validatePassword = (value) => {
+    if (!value) {
+      setPasswordError('Password is required');
+    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(value)) {
+      setPasswordError('Please Enter Valid Password ');
+    } else {
+      setPasswordError('');
+    }
+  };
 
   const handleonSubmit = async (data) => {
     try {
@@ -60,30 +82,26 @@ const Login = () => {
                       type="email"
                       {...register('email', {
                         required: 'Email is required',
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{3}$/i,
-                          message: 'Invalid email format'
-                        }
+                        
                       })}
+                      onChange={(e) => validateEmail(e.target.value)}
                       className="form-control21 form-control-lg"
                       placeholder="Email"
                     />
-                    {errors.email && <div style={{ color: 'red', display: 'block' }}>{errors.email.message}</div>}
+                    {emailError && <span style={{ color: 'red' , display:'block' }}>{emailError}</span>}
                   </div>
                   <div className="form-outline form-white mb-8" style={{ marginBottom: '20px' }}>
                     <input
                       type="password"
                       {...register('password', {
                         required: 'Password is required',
-                        pattern: {
-                          value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/,
-                          message: 'Please Enter Valid Password'
-                        }
+                        
                       })}
+                      onChange={(e) => validatePassword(e.target.value)}
                       className="form-control21 form-control-lg"
                       placeholder="Password"
                     />
-                    {errors.password && <div style={{ color: 'red', display: 'block' }}>{errors.password.message}</div>}
+                    {passwordError && <span style={{ color: 'red' , display:'block' }}>{passwordError}</span>}
                   </div>
                   <input type="submit" className=" mb-8 btn btn-primary btn-lg px-5" value="Login" />
                   {error && <div style={{ color: 'red', display: 'block' }}>{error}</div>}
@@ -102,4 +120,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login;  // without onchange
+

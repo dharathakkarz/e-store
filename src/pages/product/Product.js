@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProduct } from '../../redux/actions/ProductAction';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../redux/actions/CartAction';
-import {message,errormessage,toaststyle} from '../../constant/Message'
+import { message, errormessage, toaststyle } from '../../constant/Message';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const Product = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [moreDescriptions, setMoreDescriptions] = useState({});
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -31,13 +32,57 @@ const Product = () => {
     setOriginalProducts(products);
   }, [products]);
 
-  //searching with title and category
+  const handleQuantityChange = (productId, quantityChange) => {
+    const newQuantity = quantityChange;
+    if (newQuantity < 0) return; // Prevent negative quantities
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: newQuantity,
+    }));
+  };
+
+
+  const handleAddToCart = (product) => {
+    if (isLoggedIn()) {
+      const quantityInCart = quantities[product.id] || 0;
+      const totalQuantity = quantityInCart+1; 
+      if (totalQuantity > 9) {
+        // Display warning message if the limit is reached
+        toast.warn("You have reached the maximum limit for this item.", {
+          ...toaststyle
+        });
+      } else {
+        // Proceed to add the item to the cart
+        setQuantities(prevQuantities => ({
+          ...prevQuantities,
+          [product.id]: totalQuantity
+        }));
+        dispatch(addToCart(product, totalQuantity));
+        toast.success(message.ADDCART, {
+          ...toaststyle
+        });
+      }
+    } else {
+      toast.error(errormessage.CARTFAIL, {
+        ...toaststyle,
+        onClose: () => navigate('/login')
+      });
+    }
+  };
+  
+
+  const toggleDescription = (productId) => {
+    setMoreDescriptions(prevState => ({
+      ...prevState,
+      [productId]: !prevState[productId]
+    }));
+  };
+
   const filteredProducts = products.filter(product =>
     product.title.toLowerCase().includes(searchQuery) ||
     product.category.toLowerCase().includes(searchQuery)
   );
 
-  //selected category
   let categoryFilteredProducts = filteredProducts;
   if (selectedCategories.length > 0) {
     categoryFilteredProducts = filteredProducts.filter(product =>
@@ -45,7 +90,6 @@ const Product = () => {
     );
   }
 
-  //sorting
   let sortedProducts = [...categoryFilteredProducts];
   if (sortByPrice === 'lowToHigh') {
     sortedProducts = sortedProducts.sort((a, b) => a.price - b.price);
@@ -56,12 +100,11 @@ const Product = () => {
   const handleSort = (e) => {
     const selectedValue = e.target.value;
     if (selectedValue === 'reset') {
-      // Reset all filters and fetch original products
       setSearchQuery('');
       setSortByPrice('');
       setSelectedCategories([]);
       setCurrentPage(1);
-      dispatch(fetchProduct()); // Fetch original products
+      dispatch(fetchProduct());
     } else if (categories.includes(selectedValue)) {
       handleCategoryFilter(e);
     } else {
@@ -69,7 +112,6 @@ const Product = () => {
     }
   };
 
-  //pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedProducts.slice(indexOfFirstItem, indexOfLastItem);
@@ -93,31 +135,6 @@ const Product = () => {
 
   const categories = [...new Set(products.map(product => product.category.toLowerCase()))];
 
-  //  adding  product to the cart
-
-  const handleAddToCart = (product) => {
-    if (isLoggedIn()) {
-      dispatch(addToCart(product));
-      toast.success(message.ADDCART, {
-        ...toaststyle
-       
-      });
-    } else {
-      toast.error(errormessage.CARTFAIL, {
-        ...toaststyle,
-        onClose: () => navigate('/login') 
-        
-      });
-      
-      
-    }
-  };
-  const toggleDescription = (productId) => {
-    setMoreDescriptions(prevState => ({
-      ...prevState,
-      [productId]: !prevState[productId]
-    })); 
-  };
   return (
     <div className="product-container">
       <div className="filter-container">
@@ -157,13 +174,18 @@ const Product = () => {
                 <p>Rating: {product.rating.rate}</p>
                 <p>Count: {product.rating.count}</p>
               </div>
+              <div className="quantity-dropdown">
+                Quantity:<select value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}>
+                  {[...Array(10).keys()].map((quantity) => (
+                    <option key={quantity} value={quantity}>{quantity}</option>
+                  ))}
+                </select>
+              </div>
               <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           </div>
         ))}
       </div>
-
-      {/* if no data found btn not show */}
       {sortedProducts.length > 0 && (
         <div className="pagination">
           <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
@@ -174,4 +196,7 @@ const Product = () => {
   );
 };
 
-export default Product; 
+export default Product;  //working with dynamic add
+
+
+
