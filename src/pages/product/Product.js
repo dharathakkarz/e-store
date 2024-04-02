@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProduct } from '../../redux/actions/ProductAction';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../redux/actions/CartAction';
-import { message, errormessage, toaststyle } from '../../constant/Message';
+import { message, errormessage,warnmessage, toaststyle } from '../../constant/Message';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const Product = () => {
 
   const handleQuantityChange = (productId, quantityChange) => {
     const newQuantity = quantityChange;
-    if (newQuantity < 0) return; // Prevent negative quantities
+    if (newQuantity < 0) return; //  negative quantities not allowed
     setQuantities(prevQuantities => ({
       ...prevQuantities,
       [productId]: newQuantity,
@@ -48,11 +48,11 @@ const Product = () => {
       const totalQuantity = quantityInCart+1; 
       if (totalQuantity > 9) {
         // Display warning message if the limit is reached
-        toast.warn("You have reached the maximum limit for this item.", {
+        toast.warn(warnmessage.MOREADDED, {
           ...toaststyle
         });
       } else {
-        // Proceed to add the item to the cart
+        //  add the item to the cart
         setQuantities(prevQuantities => ({
           ...prevQuantities,
           [product.id]: totalQuantity

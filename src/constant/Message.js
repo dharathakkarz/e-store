@@ -14,7 +14,8 @@ export const errormessage = {
 }
 export const warnmessage = {
    
-    CARTREMOVE:'item removed from the cart'
+    CARTREMOVE:'item removed from the cart',
+    MOREADDED:"You have reached the maximum limit for this item."
 
 }
 
