@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../../redux/actions/CartAction';
 import { isLoggedIn } from '../../utils/authUtils';
+import {warnmessage,toaststyle} from '../../constant/Message'
+
 
 const Cart = () => {
   const cartItems = useSelector(state => state.cart.items);
@@ -17,10 +19,10 @@ const Cart = () => {
   const handleRemoveFromCart = (productId) => {
     console.log("Removing product with ID:", productId);
     dispatch(removeFromCart(productId));
-    toast.warn('item removed from the cart', {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: false
+    toast.warn(warnmessage.CARTREMOVE, {
+      ...toaststyle
+      
+     
     });
   };
 

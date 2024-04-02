@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { signupRequest } from '../../redux/actions/UserAction';
 import { useNavigate } from 'react-router-dom';
+import {message,errormessage,toaststyle} from '../../constant/Message'
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -55,10 +56,9 @@ const Signup = () => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const existingUser = users.find(user => user.email === data.email);
     if (existingUser) {
-      toast.error('This Email-id is already Registerd. Please use a different email.', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false
+      toast.error(errormessage.EMAILEXISTS, {
+        ...toaststyle,
+    
       });
       return;
     }
@@ -67,14 +67,12 @@ const Signup = () => {
     dispatch(signupRequest(data));
     users.push(data);
     localStorage.setItem('users', JSON.stringify(users));
-    toast.success('Signup successful! ', {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: false
+    toast.success(message.SIGNUP, {
+      ...toaststyle,
+      onClose: () => navigate('/login') 
+      
     });
-    setTimeout(() => {
-      navigate('/login');
-    }, 3000);
+    
   };
 
   return (
@@ -89,16 +87,16 @@ const Signup = () => {
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
                       <input type="text" {...register('username', { required: true })} className="form-control31 form-control-lg" placeholder="Username" />
-                      {errors.username && <span>Username is required</span>}
+                      {errors.username && <span style={{ color: 'red' , display:'block' }}>Username is required</span>}
                     </div>
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
                       <input type="email" {...register('email')} className="form-control31 form-control-lg" placeholder="Email" onChange={(e) => validateEmail(e.target.value)} />
-                      {emailError && <span>{emailError}</span>}
+                      {emailError && <span style={{ color: 'red' , display:'block' }}>{emailError}</span>}
                     </div>
 
                     <div className="form-outline form-white mb-4" style={{ marginBottom: '20px' }}>
                       <input type="password" {...register('password', { required: true })} className="form-control31 form-control-lg" placeholder="Password" onChange={(e) => validatePassword(e.target.value)} />
-                      {passwordError && <span>{passwordError}</span>}
+                      {passwordError && <span style={{ color: 'red' , display:'block' }}>{passwordError}</span>}
                     </div>
 
                     <input type="submit" className="btn btn-primary btn-lg px-5" value="Sign Up" />

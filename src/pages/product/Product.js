@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProduct } from '../../redux/actions/ProductAction';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../redux/actions/CartAction';
+import {message,errormessage,toaststyle} from '../../constant/Message'
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -97,24 +98,18 @@ const Product = () => {
   const handleAddToCart = (product) => {
     if (isLoggedIn()) {
       dispatch(addToCart(product));
-      toast.success('Item added to cart successfully!', {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      toast.success(message.ADDCART, {
+        ...toaststyle
+       
       });
     } else {
-      toast.error('Please complete the registration', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false
+      toast.error(errormessage.CARTFAIL, {
+        ...toaststyle,
+        onClose: () => navigate('/login') 
+        
       });
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
+      
+      
     }
   };
   const toggleDescription = (productId) => {
