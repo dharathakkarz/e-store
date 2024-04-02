@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from '../../utils/authUtils';
 import { warnmessage, toaststyle } from '../../constant/Message';
 
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [moreDescriptions, setMoreDescriptions] = useState({});
@@ -83,6 +84,7 @@ const Cart = () => {
                   <div className="card-rating-4">
                     <p>Rating: {product.rating.rate}</p>
                     <p>Count: {product.rating.count}</p>
+                  
                   </div>
                 )}
 

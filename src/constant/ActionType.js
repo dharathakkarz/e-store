@@ -14,6 +14,7 @@ export const SIGNUP_FAIL = 'SIGNUP_FAIL'
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const UPDATE_PRODUCT_COUNT = 'UPDATE_PRODUCT_COUNT';
 
 export const ADD_TO_CHECKOUT  = 'ADD_TO_CHECKOUT ';
 

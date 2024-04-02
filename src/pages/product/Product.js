@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProduct } from '../../redux/actions/ProductAction';
 import { useNavigate } from 'react-router-dom';
-import { addToCart } from '../../redux/actions/CartAction';
+import { addToCart ,updateProductCount} from '../../redux/actions/CartAction';
 import { message, errormessage,warnmessage, toaststyle } from '../../constant/Message';
 
 const Product = () => {
@@ -69,6 +69,41 @@ const Product = () => {
       });
     }
   };
+  
+
+  // const handleAddToCart = (product) => {
+  //   if (isLoggedIn()) {
+  //     const quantityInCart = quantities[product.id] || 0;
+  //     const totalQuantity = quantityInCart + 1;
+  //     if (totalQuantity > 9) {
+  //       // Display warning message if the limit is reached
+  //       toast.warn(warnmessage.MOREADDED, {
+  //         ...toaststyle
+  //       });
+  //     } else {
+  //       // Decrement product count
+  //       const updatedProduct = {
+  //         ...product,
+  //         count: product.count - totalQuantity // Subtracting the total quantity added to cart
+  //       };
+
+  //       // Dispatch actions to update product count and add to cart
+  //       dispatch(updateProductCount(product.id, updatedProduct.count));
+  //       dispatch(addToCart(updatedProduct, totalQuantity));
+
+  //       // Update local storage and display success message
+  //       toast.success(message.ADDCART, {
+  //         ...toaststyle
+  //       });
+  //     }
+  //   } else {
+  //     toast.error(errormessage.CARTFAIL, {
+  //       ...toaststyle,
+  //       onClose: () => navigate('/login')
+  //     });
+  //   }
+  // };
+
   
 
   const toggleDescription = (productId) => {
@@ -172,7 +207,10 @@ const Product = () => {
               <p className="card-category3">Category: {product.category}</p>
               <div className="card-rating3">
                 <p>Rating: {product.rating.rate}</p>
-                <p>Count: {product.rating.count}</p>
+                {/* <p>Count: {product.rating.count}</p> */}
+                <p>Count: {product.rating.count - (quantities[product.id] || 0)}</p>
+                
+
               </div>
               <div className="quantity-dropdown">
                 Quantity:<select value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}>
