@@ -30,7 +30,7 @@ export const signupFailure = (error) => {
 
 
 // Login action
-export const loginUser = (email, password, setError) => {
+export const loginUser = (email, password,navigate, setError) => {
   return (dispatch) => {
     // Check if user exists in local storage
     const users = JSON.parse(localStorage.getItem('users')) || [];
