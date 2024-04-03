@@ -30,13 +30,15 @@ const cartReducer = (state = initialState, action) => {
         };
       }
 
+  
     case REMOVE_FROM_CART:
-      const filteredItems = state.items.filter(item => item && item.id !== action.payload);
-      localStorage.setItem('cartItems', JSON.stringify(filteredItems)); // Update local storage
+      const filteredItems = state.items.filter(item => item.id !== action.payload);
+      localStorage.setItem('cartItems', JSON.stringify(filteredItems));
       return {
         ...state,
         items: filteredItems,
       };
+
 
     case ADD_TO_CHECKOUT:
       return {

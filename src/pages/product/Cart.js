@@ -9,12 +9,15 @@ import '../../assets/cart.scss';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from '../../utils/authUtils';
 import { warnmessage, toaststyle } from '../../constant/Message';
+import { removeFromCart } from '../../redux/actions/CartAction'; 
+import { useDispatch } from 'react-redux';
 
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [moreDescriptions, setMoreDescriptions] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Fetch cart items or set them from local storage
@@ -22,13 +25,12 @@ const Cart = () => {
     setCartItems(storedCartItems);
   }, [cartItems]);
 
+
+  
   const handleRemoveFromCart = (productId) => {
-    const updatedCartItems = cartItems.filter(item => item.id !== productId);
-    setCartItems(updatedCartItems);
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    dispatch(removeFromCart(productId));
     toast.warn(warnmessage.CARTREMOVE, { ...toaststyle });
   };
-  
   
 
 
@@ -116,4 +118,5 @@ const Cart = () => {
 };
 
 export default Cart; //updated
+
 

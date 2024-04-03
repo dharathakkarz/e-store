@@ -1,4 +1,4 @@
-import {ADD_TO_CART,REMOVE_FROM_CART,ADD_TO_CHECKOUT,UPDATE_PRODUCT_COUNT} from '../../constant/ActionType'
+import {ADD_TO_CART,REMOVE_FROM_CART,ADD_TO_CHECKOUT} from '../../constant/ActionType'
 
 
 
