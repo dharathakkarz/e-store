@@ -54,7 +54,7 @@ const Slide = () => {
       </div>
 
       <div>
-        <Card/>
+        {/* <Card/> */}
       </div>
     
     </>

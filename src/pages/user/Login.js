@@ -26,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      navigate('/slide');
+      navigate('/product');
     }
   }, [navigate]);
 
@@ -56,7 +56,7 @@ const Login = () => {
       setError('');
       toast.success(message.LOGIN, {
         ...toaststyle,
-        onClose: () => navigate('/slide') // Redirect after toast is closed
+        onClose: () => navigate('/product') // Redirect after toast is closed
       });
     } catch (error) {
       toast.error(errormessage.LOGINFAIL, {

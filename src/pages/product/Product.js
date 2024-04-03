@@ -1,5 +1,5 @@
 
-
+import Slide from '../../pages/home/Slide'
 import React, { useState, useEffect } from 'react';
 import '../../assets/product.scss';
 import { isLoggedIn } from '../../utils/authUtils';
@@ -137,6 +137,8 @@ const Product = () => {
   const categories = [...new Set(products.map(product => product.category.toLowerCase()))];
 
   return (
+    <div>
+ 
     <div className="product-container">
       <div className="filter-container">
         <input
@@ -156,6 +158,7 @@ const Product = () => {
           <option value="reset">Reset</option>
         </select>
       </div>
+      <Slide/>
       {error && <p>Error: {error}</p>}
       <div className="card-container">
         {currentItems.map(product => (
@@ -196,6 +199,7 @@ const Product = () => {
           <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(sortedProducts.length / itemsPerPage)}>Next</button>
         </div>
       )}
+    </div>
     </div>
   );
 };

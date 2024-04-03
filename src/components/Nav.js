@@ -16,7 +16,7 @@ const Nav = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/slide">Ecommerce-store</a>
+      <a className="navbar-brand" href="/product">Ecommerce-store</a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -31,9 +31,7 @@ const Nav = () => {
             <Link className="nav-item nav-link" to="/cart">Cart</Link>
           )}
 
-          {location.pathname !== "/slide" && (
-            <Link className="nav-item nav-link" to="/slide">Home</Link>
-          )}
+         
 
           {!loggedIn && <Link className="nav-item nav-link" to="/login">Login</Link>}
           {loggedIn && <button className="nav-item nav-link btn btn-link" onClick={handleLogout}>Logout</button>}
