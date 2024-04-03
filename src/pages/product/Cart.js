@@ -31,6 +31,7 @@ const Cart = () => {
   
   
 
+
   const handleQuantityChange = (productId, newQuantity) => {
     const updatedCartItems = cartItems.map(item =>
       item.id === productId ? { ...item, quantity: newQuantity } : item
@@ -83,7 +84,8 @@ const Cart = () => {
                 {product.rating && (
                   <div className="card-rating-4">
                     <p>Rating: {product.rating.rate}</p>
-                    <p>Count: {product.rating.count}</p>
+                    {/* <p>Count: {product.rating.count}</p> */}
+                    <p>Count: {product.rating.count - cartItems.reduce((total, item) => item.id === product.id ? total + item.quantity : total, 0)}</p>
                   
                   </div>
                 )}

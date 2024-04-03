@@ -71,40 +71,6 @@ const Product = () => {
   };
   
 
-  // const handleAddToCart = (product) => {
-  //   if (isLoggedIn()) {
-  //     const quantityInCart = quantities[product.id] || 0;
-  //     const totalQuantity = quantityInCart + 1;
-  //     if (totalQuantity > 9) {
-  //       // Display warning message if the limit is reached
-  //       toast.warn(warnmessage.MOREADDED, {
-  //         ...toaststyle
-  //       });
-  //     } else {
-  //       // Decrement product count
-  //       const updatedProduct = {
-  //         ...product,
-  //         count: product.count - totalQuantity // Subtracting the total quantity added to cart
-  //       };
-
-  //       // Dispatch actions to update product count and add to cart
-  //       dispatch(updateProductCount(product.id, updatedProduct.count));
-  //       dispatch(addToCart(updatedProduct, totalQuantity));
-
-  //       // Update local storage and display success message
-  //       toast.success(message.ADDCART, {
-  //         ...toaststyle
-  //       });
-  //     }
-  //   } else {
-  //     toast.error(errormessage.CARTFAIL, {
-  //       ...toaststyle,
-  //       onClose: () => navigate('/login')
-  //     });
-  //   }
-  // };
-
-  
 
   const toggleDescription = (productId) => {
     setMoreDescriptions(prevState => ({
