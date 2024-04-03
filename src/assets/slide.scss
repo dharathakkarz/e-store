@@ -28,21 +28,12 @@
   flex: 0 0 auto;
 }
 
-
-.bannerimg {
-  max-width: 100%; 
-  margin: 0 auto; 
-  display: block; 
-  border: inset;
-}
-
-@media screen and (max-width: 768px) {
-
-  .bannerimg {
-    max-width: 90%; 
-    margin-left: auto;
-    margin-right: auto; 
+@media (max-width: 768px) {
+  .slide-71 {
+    flex-direction: column; 
+    
   }
 }
+
 
 

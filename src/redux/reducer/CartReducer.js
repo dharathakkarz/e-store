@@ -44,7 +44,7 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         product: action.payload
-      }; // Store product in the checkout 
+      }; 
 
     default:
       return state;
