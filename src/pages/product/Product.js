@@ -163,7 +163,7 @@ const Product = () => {
       <div className="card-container">
         {currentItems.map(product => (
           <div key={product.id} className="card3">
-            <img src={product.image} alt={product.title} className="card-image3" style={{ width: '100px', height: '100px' }} />
+            <img src={product.image} alt={product.title} className="card-image3"  />
             <div className="card-details3">
               <h3 className="card-title3">{product.title}</h3>
               <p className="card-description3">

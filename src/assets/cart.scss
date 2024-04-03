@@ -3,12 +3,13 @@
 h2 {
   text-align: center;
   color: #007bff; 
+ 
 }
 
 button.continue-shopping {
   position: fixed;
-  top: 10px;
-  right: 20px;
+   top: 8%;
+  left: 20px;
 }
 
 button.remove {
@@ -28,6 +29,7 @@ button.twobtn {
 }
 
 .card-4 {
+  margin-top: 20px;
   width: 100%; 
   margin-bottom: 20px;
   padding: 20px;

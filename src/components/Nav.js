@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/actions/UserAction';
 import { isLoggedIn } from '../utils/authUtils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStore,faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = () => {
   const location = useLocation();
@@ -16,6 +18,7 @@ const Nav = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <FontAwesomeIcon icon={faStore} />
       <a className="navbar-brand" href="/product">Ecommerce-store</a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -28,7 +31,11 @@ const Nav = () => {
             <Link className="nav-item nav-link" to="/product">Product</Link>
           )}
           {location.pathname !== "/cart" && (
-            <Link className="nav-item nav-link" to="/cart">Cart</Link>
+            
+            <Link className="nav-item nav-link" to="/cart">
+               <FontAwesomeIcon icon={faCartShopping} /> 
+               Cart
+            </Link>
           )}
 
          
@@ -36,6 +43,12 @@ const Nav = () => {
           {!loggedIn && <Link className="nav-item nav-link" to="/login">Login</Link>}
           {loggedIn && <button className="nav-item nav-link btn btn-link" onClick={handleLogout}>Logout</button>}
         </div>
+      </div>
+      <div>
+      <a className="navbar-brand" href="/">MEN</a>
+      <a className="navbar-brand" href="/">WOMEN</a>
+      <a className="navbar-brand" href="/">JEWELERY</a>
+      <a className="navbar-brand" href="/">ELECTRONICS</a>
       </div>
     </nav>
   );
